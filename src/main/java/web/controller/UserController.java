@@ -9,6 +9,7 @@ import web.model.User;
 import web.service.UserService;
 
 @Controller
+@RequestMapping("/")
 public class UserController {
 
     private final UserService userService;
@@ -20,7 +21,7 @@ public class UserController {
     @GetMapping("/")
     public String getAllUsers(ModelMap model) {
         model.addAttribute("users", userService.getAllUsers());
-        return "/users";
+        return "users";
     }
 
     @GetMapping("/new")
@@ -35,7 +36,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping("/update/{id}")
+    @GetMapping("/update/{id}")
     public String update(Model model, @PathVariable("id") long id) {
         model.addAttribute("user", userService.findUserById(id));
         return "update";
@@ -47,7 +48,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @RequestMapping("/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") long id) {
         userService.deleteUser(id);
         return "redirect:/";
